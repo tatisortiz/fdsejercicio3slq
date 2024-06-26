@@ -1,0 +1,44 @@
+CREATE DATABASE restaurant;
+
+use restaurant;
+
+CREATE TABLE users (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+name VARCHAR (20),
+email VARCHAR (50) NOT NULL UNIQUE,
+password VARCHAR (250) NOT NULL ,
+phone VARCHAR (10), 
+LOYALTY_POINT VARCHAR (50),
+role ENUM ('user', 'admin','super_admin') DEFAULT 'user',
+created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+);
+
+CREATE TABLE restaurants (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+name VARCHAR (20),
+email VARCHAR (50) NOT NULL UNIQUE,
+phone VARCHAR (10),
+address VARCHAR (250) NOT NULL
+);
+
+CREATE TABLE reserve (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+user_id INT,
+FOREIGN KEY (user_id) REFERENCES users(id),
+restaurants_id INT,
+FOREIGN KEY (restaurants_id) REFERENCES restaurants(id)
+
+);
+
+CREATE TABLE reviews (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+users_id INT,
+FOREIGN KEY (users_id) REFERENCES users(id),
+restaurant_id INT,
+FOREIGN KEY (restaurant_id) REFERENCES restaurants(id),
+created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+comment_ TEXT NOT NULL,
+qualification INT 
+);
